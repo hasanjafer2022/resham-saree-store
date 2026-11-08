@@ -1,4 +1,4 @@
-/* TEHZEEB - The Weave: live 3D fabric braid (Three.js)
+/* RESHAM - The Weave: live 3D fabric braid (Three.js)
    Flat, broad ribbons - not ropes. Each strand is a thin wide band that
    wraps helically around the braid spine, broad face outward, the way
    real fabric strips braid. */
@@ -131,7 +131,7 @@ function buildBraid(textures) {
   if (reduced) { strands.forEach((m) => m.scale.setScalar(1)); renderer.render(scene, camera); }
 }
 
-window.addEventListener("tehzeeb:weave", (e) => {
+window.addEventListener("resham:weave", (e) => {
   buildBraid(e.detail.textures || []);
 });
 

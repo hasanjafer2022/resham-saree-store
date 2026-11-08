@@ -1,4 +1,4 @@
-# TEHZEEB — Lucknow Silk Saree Store
+# RESHAM — Lucknow Silk Saree Store
 
 **by [Digigrow Solution](https://digigrowsolutions.in) · Lucknow**
 
@@ -7,7 +7,7 @@ nawabi heritage of Lucknow: depth-of-field product rail, tilt cards, a real-time
 3D fabric braid builder, story viewer and a working demo bag — built with vanilla
 HTML/CSS/JS, GSAP and Three.js. No build step required.
 
-🔗 **Live demo:** https://tehzeeb-saree-store.pages.dev
+🔗 **Live demo:** https://resham-saree-store.pages.dev
 
 ## Highlights
 
@@ -40,4 +40,4 @@ All imagery in `/assets` is original AI-generated artwork.
 
 ---
 
-© 2026 Digigrow Solution, Lucknow. TEHZEEB is a demo brand — cart is demo state only, no checkout backend.
+© 2026 Digigrow Solution, Lucknow. RESHAM is a demo brand — cart is demo state only, no checkout backend.

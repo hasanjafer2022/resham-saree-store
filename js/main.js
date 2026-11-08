@@ -1,4 +1,4 @@
-/* TEHZEEB · Lucknow silk — interaction layer */
+/* RESHAM · Lucknow silk — interaction layer */
 (function () {
   "use strict";
   const $ = (s, c) => (c || document).querySelector(s);
@@ -92,7 +92,7 @@
 
   const RACK = [
     { name: "Swarna Lucknawi Silk", price: 16800, img: "assets/rack-gold.webp", cat: ["Silk Sarees", "Zari & Brocade"], hue: 0 },
-    { name: "Tehzeeb Rani Pink Temple Border", price: 28400, img: "assets/rack-pink.webp", cat: ["Silk Sarees", "Zari & Brocade"], hue: 0 },
+    { name: "Resham Rani Pink Temple Border", price: 28400, img: "assets/rack-pink.webp", cat: ["Silk Sarees", "Zari & Brocade"], hue: 0 },
     { name: "Koorai Madras Checks", price: 18600, img: "assets/rack-check.webp", cat: ["Checked Sarees"], hue: 0 },
     { name: "Peacock Pattu", price: 31200, img: "assets/rack-peacock.webp", cat: ["Silk Sarees"], hue: 0 },
     { name: "Vaira Oosi Purple", price: 26400, img: "assets/rack-purple.webp", cat: ["Silk Sarees", "Zari & Brocade"], hue: 0 },
@@ -720,7 +720,7 @@
       addBtn.disabled = !full;
       emptyEl.classList.toggle("is-hidden", picked.length > 0);
       // tell the braid
-      window.dispatchEvent(new CustomEvent("tehzeeb:weave", {
+      window.dispatchEvent(new CustomEvent("resham:weave", {
         detail: { textures: picked.map((i) => WEAVE_SILKS[i].tex) },
       }));
     }
