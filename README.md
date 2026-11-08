@@ -1,12 +1,13 @@
-# NOOLAM — Kanjivaram Silk Saree Store
+# TEHZEEB — Lucknow Silk Saree Store
 
-**by [Digigrow Solution](https://digigrowsolutions.in)**
+**by [Digigrow Solution](https://digigrowsolutions.in) · Lucknow**
 
-A premium, fully interactive silk-saree e-commerce experience: depth-of-field product rail,
-tilt cards, a real-time 3D fabric braid builder, story viewer and a working demo bag —
-built with vanilla HTML/CSS/JS, GSAP and Three.js. No build step required.
+A premium, fully interactive silk-saree e-commerce experience inspired by the
+nawabi heritage of Lucknow: depth-of-field product rail, tilt cards, a real-time
+3D fabric braid builder, story viewer and a working demo bag — built with vanilla
+HTML/CSS/JS, GSAP and Three.js. No build step required.
 
-🔗 **Live demo:** https://noolam-saree-store.pages.dev
+🔗 **Live demo:** https://tehzeeb-saree-store.pages.dev
 
 ## Highlights
 
@@ -34,9 +35,9 @@ All imagery in `/assets` is original AI-generated artwork.
 ## Credits
 
 - Front-end code based on the open-source `nooram-replica` project by **NamelessMonsterr**.
-- NOOLAM brand concept from [alagappan567/noolam-saree-showcase](https://github.com/alagappan567/noolam-saree-showcase).
-- Deployed, branded and maintained by **Digigrow Solution** · digigrowsolutions.in
+- Concept inspired by the NOOLAM showcase ([alagappan567/noolam-saree-showcase](https://github.com/alagappan567/noolam-saree-showcase)).
+- Rebranded for Lucknow, deployed and maintained by **Digigrow Solution** · digigrowsolutions.in
 
 ---
 
-© 2026 Digigrow Solution. NOOLAM is a demo brand — cart is demo state only, no checkout backend.
+© 2026 Digigrow Solution, Lucknow. TEHZEEB is a demo brand — cart is demo state only, no checkout backend.

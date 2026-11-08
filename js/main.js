@@ -1,4 +1,4 @@
-/* NOOLAM concept replica - interaction layer */
+/* TEHZEEB · Lucknow silk — interaction layer */
 (function () {
   "use strict";
   const $ = (s, c) => (c || document).querySelector(s);
@@ -11,7 +11,7 @@
     {
       id: "ivory", name: "Ivory Elephant", img: "assets/look-ivory.jpg",
       pieces: [
-        { n: "Ivory Kanjivaram, Elephant Border", c: "Silk saree", p: 13500, img: "assets/look-ivory.jpg", x: 50, y: 62 },
+        { n: "Ivory Lucknawi Silk, Elephant Border", c: "Silk saree", p: 13500, img: "assets/look-ivory.jpg", x: 50, y: 62 },
         { n: "Dusty Rose Silk Blouse", c: "Blouse", p: 4850, img: "assets/look-coral.jpg", x: 47, y: 32 },
         { n: "Pink Stone Temple Choker", c: "Necklace", p: 9450, img: "assets/look-red.jpg", x: 50, y: 18 },
         { n: "Jhumkas with Pearl Drops", c: "Earrings", p: 3800, img: "assets/look-purple.jpg", x: 62, y: 14 },
@@ -22,7 +22,7 @@
     {
       id: "coral", name: "Rani Rose Court", img: "assets/look-coral.jpg",
       pieces: [
-        { n: "Rani Pink Kanchi Silk", c: "Silk saree", p: 24900, img: "assets/look-coral.jpg", x: 50, y: 60 },
+        { n: "Rani Pink Lucknow Silk", c: "Silk saree", p: 24900, img: "assets/look-coral.jpg", x: 50, y: 60 },
         { n: "Midnight Navy Blouse", c: "Blouse", p: 5200, img: "assets/look-purple.jpg", x: 48, y: 32 },
         { n: "Temple Lakshmi Haram", c: "Necklace", p: 12800, img: "assets/look-red.jpg", x: 50, y: 18 },
         { n: "Ruby Jhumkas", c: "Earrings", p: 4600, img: "assets/look-red.jpg", x: 60, y: 14 },
@@ -31,7 +31,7 @@
     {
       id: "teal", name: "Peacock Garden", img: "assets/look-teal.jpg",
       pieces: [
-        { n: "Teal Checked Kanchivaram", c: "Silk saree", p: 22900, img: "assets/look-teal.jpg", x: 50, y: 60 },
+        { n: "Teal Checked Lucknawi Silk", c: "Silk saree", p: 22900, img: "assets/look-teal.jpg", x: 50, y: 60 },
         { n: "Coral Raw Silk Blouse", c: "Blouse", p: 4400, img: "assets/look-coral.jpg", x: 48, y: 32 },
         { n: "Coral and Pearl Choker", c: "Necklace", p: 8900, img: "assets/look-red.jpg", x: 50, y: 18 },
         { n: "Gold Waist Cord", c: "Oddiyanam", p: 7400, img: "assets/look-ivory.jpg", x: 50, y: 47 },
@@ -48,7 +48,7 @@
     {
       id: "red", name: "Sindoor Bride", img: "assets/look-red.jpg",
       pieces: [
-        { n: "Bridal Red Kanjivaram", c: "Silk saree", p: 48900, img: "assets/look-red.jpg", x: 50, y: 60 },
+        { n: "Bridal Red Lucknawi Silk", c: "Silk saree", p: 48900, img: "assets/look-red.jpg", x: 50, y: 60 },
         { n: "Emerald Zari Blouse", c: "Blouse", p: 6800, img: "assets/look-teal.jpg", x: 48, y: 32 },
         { n: "Full Temple Bridal Set", c: "Jewellery", p: 21400, img: "assets/look-ivory.jpg", x: 50, y: 18 },
         { n: "Jasmine Veni", c: "Hair", p: 1200, img: "assets/look-ivory.jpg", x: 58, y: 10 },
@@ -91,8 +91,8 @@
   ];
 
   const RACK = [
-    { name: "Swarna Kanjivaram", price: 16800, img: "assets/rack-gold.webp", cat: ["Silk Sarees", "Zari & Brocade"], hue: 0 },
-    { name: "Noolam Rani Pink Temple Border", price: 28400, img: "assets/rack-pink.webp", cat: ["Silk Sarees", "Zari & Brocade"], hue: 0 },
+    { name: "Swarna Lucknawi Silk", price: 16800, img: "assets/rack-gold.webp", cat: ["Silk Sarees", "Zari & Brocade"], hue: 0 },
+    { name: "Tehzeeb Rani Pink Temple Border", price: 28400, img: "assets/rack-pink.webp", cat: ["Silk Sarees", "Zari & Brocade"], hue: 0 },
     { name: "Koorai Madras Checks", price: 18600, img: "assets/rack-check.webp", cat: ["Checked Sarees"], hue: 0 },
     { name: "Peacock Pattu", price: 31200, img: "assets/rack-peacock.webp", cat: ["Silk Sarees"], hue: 0 },
     { name: "Vaira Oosi Purple", price: 26400, img: "assets/rack-purple.webp", cat: ["Silk Sarees", "Zari & Brocade"], hue: 0 },
@@ -110,15 +110,15 @@
     { num: "06", name: "Kumkum Bridal Brocade", price: 52000, img: "assets/rack-pink.webp" },
     { num: "07", name: "Cocoa Chiffon Drape", price: 18600, img: "assets/rack-mustard.webp" },
     { num: "08", name: "Sindoor Paithani", price: 38700, img: "assets/rack-purple.webp" },
-    { num: "09", name: "Swarna Kanjivaram", price: 16800, img: "assets/rack-gold.webp" },
+    { num: "09", name: "Swarna Lucknawi Silk", price: 16800, img: "assets/rack-gold.webp" },
     { num: "10", name: "Ponni Temple Border", price: 22300, img: "assets/rack-check.webp" },
   ];
 
   const REELS = [
-    { id: "lanes", name: "Old-City Lanes", badge: "REEL 01", dur: "0:38", secs: 6, place: "Old-city lanes", img: "assets/reel-lanes.jpg", kicker: "Kanchi Cotton Silk", prod: "Manjal Kattam", desc: "Turmeric-yellow checks that remember every street they have walked.", price: 18900 },
+    { id: "lanes", name: "Old-City Lanes", badge: "REEL 01", dur: "0:38", secs: 6, place: "Old-city lanes", img: "assets/reel-lanes.jpg", kicker: "Lucknow Cotton Silk", prod: "Manjal Kattam", desc: "Turmeric-yellow checks that remember every street they have walked.", price: 18900 },
     { id: "marina", name: "Marina Morning", badge: "REEL 02", dur: "0:31", secs: 6, place: "Marina, first light", img: "assets/reel-marina.jpg", kicker: "Kora Silk", prod: "Kadal Sunrise", desc: "Sea-breeze yellow with a dawn-gold border, weightless as the hour.", price: 21400 },
     { id: "studio", name: "Varanasi Red", badge: "REEL 03", dur: "0:24", secs: 6, place: "Studio, Varanasi red", img: "assets/reel-studio.jpg", kicker: "Banarasi Katan", prod: "Kaali Banarasi", desc: "Night-black silk, a broad gold kadhua border, worn like armour.", price: 36400 },
-    { id: "lamp", name: "Lamp Room", badge: "REEL 04", dur: "0:27", secs: 6, place: "Lamp room, Kanchipuram", img: "assets/reel-lamp.jpg", kicker: "Kanjivaram", prod: "Deepam Pachai", desc: "Lamp-green silk that holds a flame's warmth long after dusk.", price: 26800 },
+    { id: "lamp", name: "Lamp Room", badge: "REEL 04", dur: "0:27", secs: 6, place: "Lamp room, Lucknow", img: "assets/reel-lamp.jpg", kicker: "Lucknawi Silk", prod: "Deepam Pachai", desc: "Lamp-green silk that holds a flame's warmth long after dusk.", price: 26800 },
     { id: "pachai", name: "Pachai Pattu", badge: "REEL 05", dur: "0:33", secs: 6, place: "Jasmine court", img: "assets/reel-pachai.jpg", kicker: "Soft Silk", prod: "Mullai Pachai", desc: "Jasmine green with a pearl-white edge, cool as a shaded court.", price: 19600 },
   ];
 
@@ -140,8 +140,8 @@
   ];
 
   const TICKER = [
-    ["Handwoven in Kanchipuram, one saree at a time", null],
-    ["TRY THE LOOK", "Eight Kanjivaram looks, styled head to toe"],
+    ["Handwoven in Lucknow, one saree at a time", null],
+    ["TRY THE LOOK", "Eight Lucknawi Silk looks, styled head to toe"],
     ["PURE ZARI", "Silver-core zari woven into every temple border"],
     ["THE RACK", "Browse the full rail of silks"],
     ["BRIDAL", "Heirloom bridal silks for the day that matters"],
@@ -267,7 +267,7 @@
     const line = $("#heroLine"), sub = $("#heroSub");
     const states = [
       { line: 'Woven for the <em>Divine.</em>', sub: 'Six Moods. Timeless Drapes. <span>Made to move with you.</span>' },
-      { line: 'Six Moods. <em>Timeless Drapes.</em>', sub: 'Handwoven in Kanchipuram, <span>one saree at a time.</span>' },
+      { line: 'Six Moods. <em>Timeless Drapes.</em>', sub: 'Handwoven in Lucknow, <span>one saree at a time.</span>' },
     ];
     let i = 0;
     if (reduced) return;
@@ -502,7 +502,7 @@
       setTimeout(() => (this.textContent = "Add to bag"), 1600);
       toast(`<b>${cur.name}</b> - off the rail, into your bag.`);
     });
-    $("#rackAvail").addEventListener("click", () => toast("In stock at the Kanchipuram flagship. Ships in 2 days."));
+    $("#rackAvail").addEventListener("click", () => toast("In stock at the Lucknow flagship. Ships in 2 days."));
 
     // grid
     const grid = $("#rackGrid");
@@ -720,7 +720,7 @@
       addBtn.disabled = !full;
       emptyEl.classList.toggle("is-hidden", picked.length > 0);
       // tell the braid
-      window.dispatchEvent(new CustomEvent("noolam:weave", {
+      window.dispatchEvent(new CustomEvent("tehzeeb:weave", {
         detail: { textures: picked.map((i) => WEAVE_SILKS[i].tex) },
       }));
     }
