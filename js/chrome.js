@@ -14,7 +14,7 @@
     <div class="footer-word" aria-hidden="true">RESHAM</div>
     <nav class="footer-col" aria-label="Shop">
       <h3>Shop</h3>
-      <a href="index.html#the-rack">Silk sarees</a><a href="index.html#the-rack">Half sarees</a><a href="index.html#the-rack">Blouses</a><a href="index.html#bridal">Bridal collection</a>
+      <a href="collections/silk-sarees/">Silk Sarees</a><a href="collections/zari-brocade/">Zari &amp; Brocade</a><a href="collections/checked-sarees/">Checked sarees</a><a href="collections/half-sarees/">Half Sarees</a><a href="collections/blouses/">Blouses</a><a href="collections/jewellery/">Jewellery</a><a href="collections/bridal/">Bridal collection</a>
     </nav>
     <nav class="footer-col" aria-label="Explore">
       <h3>Explore</h3>
@@ -57,7 +57,20 @@
     <a class="brand" href="index.html" aria-label="RESHAM home">${LOTUS}<span class="brand-word">RESHAM<small>LUCKNOW SILK</small></span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
-      <li><a href="index.html#the-rack">The Rack</a></li>
+      <li class="nav-drop" id="navDrop">
+        <button class="nav-drop-btn" type="button" aria-expanded="false" aria-haspopup="true">Shop <svg class="caret" viewBox="0 0 24 24" width="11" height="11" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" d="M6 9.5l6 6 6-6"/></svg></button>
+        <div class="nav-drop-panel">
+          <a class="nd-feat" href="index.html#the-rack"><b>The full rack</b><small>Every piece on one rail</small></a>
+          <a href="collections/silk-sarees/" data-count-cat="Silk Sarees">Silk Sarees <small></small></a>
+          <a href="collections/zari-brocade/" data-count-cat="Zari &amp; Brocade">Zari &amp; Brocade <small></small></a>
+          <a href="collections/checked-sarees/" data-count-cat="Checked Sarees">Checked Sarees <small></small></a>
+          <a href="collections/half-sarees/" data-count-cat="Half Sarees">Half Sarees <small></small></a>
+          <a href="collections/blouses/" data-count-type="blouse">Blouses <small></small></a>
+          <a href="collections/jewellery/" data-count-cat="Jewellery">Jewellery <small></small></a>
+          <a href="collections/bridal/" data-count-cat="Bridal">Bridal <small></small></a>
+          <a class="nd-all" href="collections/">All collections →</a>
+        </div>
+      </li>
       <li><a href="index.html#bridal">Bridal</a></li>
       <li><a href="wishlist.html">Wishlist</a></li>
       <li><a href="cart.html">Bag</a></li>
@@ -82,6 +95,23 @@
     const nf = document.getElementById("newsForm");
     if (nf) nf.addEventListener("submit", (e) => { e.preventDefault(); toast("Woven into the list. First letter arrives with the new season."); e.target.reset(); });
     $$(".back-top").forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }));
+
+    const drop = document.getElementById("navDrop");
+    if (drop) {
+      const btn = drop.querySelector(".nav-drop-btn");
+      const setOpen = (open) => { drop.classList.toggle("is-open", open); btn.setAttribute("aria-expanded", open ? "true" : "false"); };
+      btn.addEventListener("click", (e) => { e.stopPropagation(); setOpen(!drop.classList.contains("is-open")); });
+      document.addEventListener("click", (e) => { if (!drop.contains(e.target)) setOpen(false); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+      const cat = window.RESHAM_PRODUCTS || [];
+      $$("[data-count-cat], [data-count-type]", drop).forEach((a) => {
+        const n = a.dataset.countCat
+          ? cat.filter((p) => p.cat.includes(a.dataset.countCat)).length
+          : cat.filter((p) => p.type === a.dataset.countType).length;
+        const s = a.querySelector("small");
+        if (s) s.textContent = n;
+      });
+    }
     // badges render into the injected nav — re-sync now that it exists
     if (window.ReshamStore) {
       document.dispatchEvent(new CustomEvent("resham:cart"));

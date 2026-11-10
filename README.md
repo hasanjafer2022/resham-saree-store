@@ -31,6 +31,14 @@ Production-ready discovery layer, no design impact:
 - **Crawlable product pages** — one static page per product under `/products/<sku>/`
   (50 pages), each with unique title, meta description, canonical URL, Open Graph +
   Twitter cards and prefilled content that renders even before JavaScript runs.
+- **Category landing pages** — `/collections/` hub plus seven collection pages
+  (silk sarees, zari & brocade, checked sarees, half sarees, blouses, jewellery,
+  bridal), each with statically prefilled product cards (crawlable internal links),
+  `CollectionPage` + `ItemList` structured data, and cross-links between collections.
+- **Shop mega-menu** — the nav pill has a Shop dropdown listing every collection with
+  live product counts (tap-friendly on mobile); the footer Shop column links the
+  same pages, so home → collection → product → related product links in a continuous
+  crawlable loop.
 - **Structured data (JSON-LD)** — `OnlineStore` + `WebSite` + `Organization` on home;
   `Product` + `Offer` (price, INR, shipping, 7-day return policy) + `AggregateRating`
   + `BreadcrumbList` + `FAQPage` on every product page; `ContactPage`,

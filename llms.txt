@@ -18,7 +18,9 @@
 ## Key pages
 
 - [Home](https://resham-saree-store.pages.dev/) — collections, bridal edit, craft story
-- [All silk sarees](https://resham-saree-store.pages.dev/index.html#the-rack) — full rack with filters
+- [Collections hub](https://resham-saree-store.pages.dev/collections/) — shop by collection
+- Collections: [Silk Sarees](https://resham-saree-store.pages.dev/collections/silk-sarees/) · [Zari & Brocade](https://resham-saree-store.pages.dev/collections/zari-brocade/) · [Checked Sarees](https://resham-saree-store.pages.dev/collections/checked-sarees/) · [Half Sarees](https://resham-saree-store.pages.dev/collections/half-sarees/) · [Blouses](https://resham-saree-store.pages.dev/collections/blouses/) · [Temple Jewellery](https://resham-saree-store.pages.dev/collections/jewellery/) · [Bridal](https://resham-saree-store.pages.dev/collections/bridal/)
+- [The full rack](https://resham-saree-store.pages.dev/index.html#the-rack) — every piece with filters
 - [Popular product](https://resham-saree-store.pages.dev/products/rsw-rani/) — Resham Rani Pink Temple Border silk saree
 - [Shipping & delivery](https://resham-saree-store.pages.dev/shipping) — dispatch in 24–48 h, metro 2–3 days, rest of India 3–7 days, free above ₹9,999
 - [Returns & refunds](https://resham-saree-store.pages.dev/refund) — 7-day window, free reverse pickup, refund in 48 h of inspection
@@ -34,8 +36,11 @@
 ## For machines
 
 - Product catalogue: every product has a dedicated page under `/products/<sku>/`
+- Category landing pages: `/collections/<slug>/` (silk-sarees, zari-brocade,
+  checked-sarees, half-sarees, blouses, jewellery, bridal) plus the hub at `/collections/`
 - Structured data: schema.org Product + Offer + AggregateRating + FAQPage on every
-  product page; OnlineStore + FAQPage on policy pages
-- [Sitemap](https://resham-saree-store.pages.dev/sitemap.xml) — all 56 indexable URLs
+  product page; CollectionPage + ItemList on collection pages; OnlineStore + FAQPage
+  on policy pages
+- [Sitemap](https://resham-saree-store.pages.dev/sitemap.xml) — all 64 indexable URLs
 
 Built and maintained by Digigrow Solution · [digigrowsolutions.in](https://digigrowsolutions.in)
