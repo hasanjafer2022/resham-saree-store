@@ -71,7 +71,7 @@
           <a class="nd-all" href="collections/">All collections →</a>
         </div>
       </li>
-      <li><a href="index.html#bridal">Bridal</a></li>
+      <li><a href="collections/bridal/">Bridal</a></li>
       <li><a href="wishlist.html">Wishlist</a></li>
       <li><a href="cart.html">Bag</a></li>
     </ul>
