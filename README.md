@@ -40,9 +40,7 @@ All imagery in `/assets` is original AI-generated artwork.
 
 ## Credits
 
-- Front-end code based on the open-source `nooram-replica` project by **NamelessMonsterr**.
-- Concept inspired by the NOOLAM showcase ([alagappan567/noolam-saree-showcase](https://github.com/alagappan567/noolam-saree-showcase)).
-- Rebranded for Lucknow, deployed and maintained by **Digigrow Solution** · digigrowsolutions.in
+- Designed, built and maintained by **Digigrow Solution** · [digigrowsolutions.in](https://digigrowsolutions.in)
 
 ---
 
