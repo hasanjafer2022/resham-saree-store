@@ -230,7 +230,8 @@
       list.innerHTML = '<li class="drawer-empty">Your bag is empty. The rail is full, though.</li>';
     } else {
       list.innerHTML = bag.map((b) => {
-        const name = b.sku ? `<a href="product.html?sku=${b.sku}">${b.name}</a>` : b.name;
+        const cp = b.sku && window.reshamBySku ? window.reshamBySku(b.sku) : null;
+        const name = b.sku ? `<a href="${cp ? cp.href : "product.html?sku=" + b.sku}">${b.name}</a>` : b.name;
         return `
         <li>
           <img src="${b.img}" alt="">

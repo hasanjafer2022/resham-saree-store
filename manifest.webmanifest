@@ -1,0 +1,13 @@
+{
+  "name": "RESHAM · Lucknow Silk",
+  "short_name": "RESHAM",
+  "description": "Handwoven silk sarees, blouses and temple jewellery from Lucknow.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f1e8",
+  "theme_color": "#5c0e1a",
+  "lang": "en-IN",
+  "icons": [
+    { "src": "/assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

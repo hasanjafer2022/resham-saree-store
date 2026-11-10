@@ -81,6 +81,7 @@
     }
     const nf = document.getElementById("newsForm");
     if (nf) nf.addEventListener("submit", (e) => { e.preventDefault(); toast("Woven into the list. First letter arrives with the new season."); e.target.reset(); });
+    $$(".back-top").forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }));
     // badges render into the injected nav — re-sync now that it exists
     if (window.ReshamStore) {
       document.dispatchEvent(new CustomEvent("resham:cart"));

@@ -1,0 +1,41 @@
+# RESHAM · Lucknow Silk
+
+> RESHAM is a Lucknow-based silk saree house: handwoven sarees, blouses and temple
+> jewellery, dispatched from Hazratganj, Lucknow, with free shipping above ₹9,999,
+> 7-day returns and cash on delivery across India. This storefront is a
+> demonstration build by Digigrow Solution (digigrowsolutions.in) — orders are
+> simulated and no payment is processed.
+
+## What RESHAM sells
+
+- **Silk sarees** (₹12,000–₹1,10,000): Lucknawi silk, Banarasi katan, kora organza,
+  chiffon, tissue silk, Paithani, bandhani and soft silk — 6.3 m sarees with a
+  0.8 m blouse piece, woven on handlooms.
+- **Blouses** (₹3,000–₹6,000): raw-silk ready-stitched blouses, sizes 34–42.
+- **Temple & silver jewellery** (₹1,200–₹9,500): chokers, jhumkas, necklaces,
+  ottiyanam, bangles and gajra — gold-plated, kemp-stone and 92.5 silver pieces.
+
+## Key pages
+
+- [Home](https://resham-saree-store.pages.dev/) — collections, bridal edit, craft story
+- [All silk sarees](https://resham-saree-store.pages.dev/index.html#the-rack) — full rack with filters
+- [Popular product](https://resham-saree-store.pages.dev/products/rsw-rani/) — Resham Rani Pink Temple Border silk saree
+- [Shipping & delivery](https://resham-saree-store.pages.dev/shipping) — dispatch in 24–48 h, metro 2–3 days, rest of India 3–7 days, free above ₹9,999
+- [Returns & refunds](https://resham-saree-store.pages.dev/refund) — 7-day window, free reverse pickup, refund in 48 h of inspection
+- [Contact](https://resham-saree-store.pages.dev/contact) — care@digigrowsolutions.in · +91 522 400 1234 · 14 Hazratganj, Lucknow 226001
+
+## Policies at a glance
+
+- Payment: UPI, cards, net banking, COD (demo checkout in this build)
+- Returns: 7 days from delivery, unworn pieces, free reverse pickup, exchange supported
+- Delivery: India only; tracking link sent on dispatch
+- Jurisdiction: courts of Lucknow, Uttar Pradesh
+
+## For machines
+
+- Product catalogue: every product has a dedicated page under `/products/<sku>/`
+- Structured data: schema.org Product + Offer + AggregateRating + FAQPage on every
+  product page; OnlineStore + FAQPage on policy pages
+- [Sitemap](https://resham-saree-store.pages.dev/sitemap.xml) — all 56 indexable URLs
+
+Built and maintained by Digigrow Solution · [digigrowsolutions.in](https://digigrowsolutions.in)

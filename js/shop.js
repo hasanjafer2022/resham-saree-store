@@ -23,11 +23,14 @@
       if (!items.length) { layout.hidden = true; empty.hidden = false; return; }
       empty.hidden = true; layout.hidden = false;
       $("#cartCountLine").innerHTML = `<b>${items.length}</b> ${items.length === 1 ? "piece" : "pieces"} in the bag · every one folded and shipped from Lucknow.`;
-      list.innerHTML = items.map((it) => `
+      list.innerHTML = items.map((it) => {
+        const cp = it.sku && window.reshamBySku ? window.reshamBySku(it.sku) : null;
+        const href = cp ? cp.href : "product.html?sku=" + (it.sku || "");
+        return `
         <article class="cart-row" data-key="${it.key}">
           <img src="${it.img}" alt="${it.name}">
           <div>
-            <p class="ci-name"><a href="product.html?sku=${it.sku || ""}">${it.name}</a></p>
+            <p class="ci-name"><a href="${href}">${it.name}</a></p>
             <p class="ci-meta">${it.fabric ? it.fabric + " · " : ""}${it.color ? it.color + " · " : ""}${it.size ? "Size " + it.size : ""}</p>
             <div class="qty" style="margin-top:10px;width:max-content">
               <button data-a="minus" aria-label="Decrease">−</button>
@@ -40,7 +43,8 @@
             <span class="ci-mrp">${inr(it.mrp * it.qty)}</span>
             <button class="ci-x" data-a="remove">Remove</button>
           </div>
-        </article>`).join("");
+        </article>`;
+      }).join("");
 
       $$("article", list).forEach((row) => {
         const key = row.dataset.key;

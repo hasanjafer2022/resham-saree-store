@@ -24,6 +24,37 @@ HTML/CSS/JS, GSAP and Three.js. No build step required.
 - Hotspots on the muse film, marquee/ticker, look selector, bag drawer
 - Fully responsive (desktop + mobile), `prefers-reduced-motion` honored
 
+## SEO · AEO · GEO
+
+Production-ready discovery layer, no design impact:
+
+- **Crawlable product pages** — one static page per product under `/products/<sku>/`
+  (50 pages), each with unique title, meta description, canonical URL, Open Graph +
+  Twitter cards and prefilled content that renders even before JavaScript runs.
+- **Structured data (JSON-LD)** — `OnlineStore` + `WebSite` + `Organization` on home;
+  `Product` + `Offer` (price, INR, shipping, 7-day return policy) + `AggregateRating`
+  + `BreadcrumbList` + `FAQPage` on every product page; `ContactPage`,
+  `FAQPage` and breadcrumb-aware `WebPage` on policy pages.
+- **Robots & sitemap** — `robots.txt` (search + AI crawlers explicitly allowed, utility
+  pages disallowed) and a generated `sitemap.xml` with all 56 indexable URLs.
+- **AEO / GEO** — visible FAQ sections with matching `FAQPage` schema on the returns
+  and shipping pages, `llms.txt` for answer/generative engines, and honest
+  machine-readable policy summaries.
+- **Production hardening** — custom `404.html` (Cloudflare Pages serves it for any
+  missing route), security headers via `_headers` (nosniff, DENY framing, referrer
+  policy, permissions policy), long-cache rules for assets, `manifest.webmanifest`
+  and a 1200×630 social share image (`assets/og-cover.jpg`).
+
+### Regenerating product pages & sitemap
+
+The static pages and sitemap are derived from `js/products.js` (the single source of
+truth). After editing the catalogue:
+
+```bash
+node tools/generate-product-pages.mjs   # rebuilds /products/<sku>/ + sitemap.xml
+node tools/seo-inject.mjs               # re-applies head metadata to root pages (idempotent)
+```
+
 ## Run locally
 
 No build step. Serve the folder over HTTP (needed for the Three.js module):

@@ -123,7 +123,7 @@
     colors: p.colors.map((c) => (Array.isArray(c) ? { name: c[0], hex: c[1] } : { name: c, hex: "#d9b26a" })),
     gallery: gallery(p),
     cloth: CLOTH(p),
-    href: "product.html?sku=" + p.sku,
+    href: "products/" + p.sku.toLowerCase() + "/",
   }));
 
   const bySku = (sku) => products.find((p) => p.sku === sku);

@@ -6,11 +6,117 @@
   const S = window.ReshamStore, C = window.ReshamChrome, inr = S.inr;
   const toast = (h) => C.toast(h);
 
-  const sku = new URLSearchParams(location.search).get("sku");
+  const pathSku = (location.pathname.match(/\/products\/([^\/?#]+)/i) || [])[1];
+  const sku = pathSku ? decodeURIComponent(pathSku).toUpperCase() : new URLSearchParams(location.search).get("sku");
   const p = window.reshamBySku(sku);
   if (!p) { location.replace("index.html"); return; }
 
   document.title = p.name + " · RESHAM - Lucknow Silk";
+
+  /* ---------- dynamic SEO (covers ?sku= fallback URLs; static /products/ pages ship this pre-rendered) ---------- */
+  const CANON = "https://resham-saree-store.pages.dev/products/" + p.sku.toLowerCase() + "/";
+  const DESC = (p.desc + " " + p.fabric + " — ₹" + p.price.toLocaleString("en-IN") + " at RESHAM · Lucknow Silk. 7-day returns, COD across India.").slice(0, 300);
+  const head = document.head;
+  const addMeta = (attr, key, content) => {
+    const m = document.createElement("meta");
+    m.setAttribute(attr, key);
+    m.setAttribute("content", content);
+    head.appendChild(m);
+  };
+  const addLink = (rel, href) => {
+    const l = document.createElement("link");
+    l.setAttribute("rel", rel);
+    l.setAttribute("href", href);
+    head.appendChild(l);
+  };
+  addMeta("name", "description", DESC);
+  addLink("canonical", CANON);
+  addMeta("property", "og:site_name", "RESHAM · Lucknow Silk");
+  addMeta("property", "og:type", "product");
+  addMeta("property", "og:title", p.name + " · RESHAM - Lucknow Silk");
+  addMeta("property", "og:description", DESC);
+  addMeta("property", "og:url", CANON);
+  addMeta("property", "og:image", "https://resham-saree-store.pages.dev/" + p.img);
+  addMeta("name", "twitter:card", "summary_large_image");
+  addMeta("name", "twitter:title", p.name + " · RESHAM");
+  addMeta("name", "twitter:description", DESC);
+  addMeta("name", "twitter:image", "https://resham-saree-store.pages.dev/" + p.img);
+  const ld = document.createElement("script");
+  ld.type = "application/ld+json";
+  ld.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Product",
+        name: p.name,
+        image: p.gallery.map((g) => "https://resham-saree-store.pages.dev/" + g),
+        description: p.desc,
+        sku: p.sku,
+        brand: { "@type": "Brand", name: "RESHAM" },
+        material: p.fabric,
+        aggregateRating: { "@type": "AggregateRating", ratingValue: p.rating, reviewCount: p.reviews, bestRating: 5 },
+        offers: {
+          "@type": "Offer",
+          url: CANON,
+          priceCurrency: "INR",
+          price: p.price,
+          availability: "https://schema.org/InStock",
+          itemCondition: "https://schema.org/NewCondition",
+          shippingDetails: {
+            "@type": "OfferShippingDetails",
+            shippingRate: { "@type": "MonetaryAmount", value: 0, currency: "INR" },
+            shippingDestination: { "@type": "DefinedRegion", addressCountry: "IN" },
+          },
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            applicableCountry: "IN",
+            returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+            merchantReturnDays: 7,
+            returnMethod: "https://schema.org/ReturnByMail",
+            returnFees: "https://schema.org/FreeReturn",
+          },
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://resham-saree-store.pages.dev/" },
+          { "@type": "ListItem", position: 2, name: p.cat[0], item: "https://resham-saree-store.pages.dev/index.html#the-rack" },
+          { "@type": "ListItem", position: 3, name: p.name, item: CANON },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          { "@type": "Question", name: "What fabric is the " + p.name + " made of?", acceptedAnswer: { "@type": "Answer", text: FABRIC_ANSWER(p) } },
+          { "@type": "Question", name: "What is the price of the " + p.name + "?", acceptedAnswer: { "@type": "Answer", text: "The " + p.name + " is priced at ₹" + p.price.toLocaleString("en-IN") + " (MRP ₹" + p.mrp.toLocaleString("en-IN") + "), inclusive of all taxes." } },
+          { "@type": "Question", name: "What is the return policy?", acceptedAnswer: { "@type": "Answer", text: "7-day easy returns with free reverse pickup across India. Sarees must be unworn with fall and picot untouched. Refunds are issued to the original payment method." } },
+          { "@type": "Question", name: "Is cash on delivery available?", acceptedAnswer: { "@type": "Answer", text: "Yes — cash on delivery is available across India at no extra charge. Orders above ₹9,999 ship free." } },
+        ],
+      },
+    ],
+  });
+  head.appendChild(ld);
+
+  function FABRIC_ANSWER(prod) {
+    const notes = {
+      "Lucknawi silk": "Pure mulberry silk woven on the handlooms of Lucknow with silver-core zari borders.",
+      "Banarasi katan": "Katan silk with kadhua zari brocade woven on Banaras pit-looms.",
+      "Cotton silk": "A silk-cotton blend that breathes with the weather — crisp pleats, temple-thread border.",
+      "Kora organza": "Featherweight kora silk with a hand-rolled gold edge.",
+      "Chiffon": "Silk chiffon that falls close and moves like water.",
+      "Raw silk": "Textured raw silk with a structured, lined bodice.",
+      "Tissue silk": "Tissue silk with foil zari — light as a coin, bright as one.",
+      "Paithani silk": "Paithani weave with a tapestry pallu, two extra weft shuttles per row.",
+      "Bandhani silk": "Hand-tied bandhani on silk, dot by dot, over three weeks of work.",
+      "Soft silk": "Lightweight soft silk with a woven gold zari border.",
+      "Temple jewellery": "Gold-plated brass with kemp stones, closed-back setting, nickel-free.",
+      "Silver jewellery": "92.5 sterling silver with gold vermeil and pearl drops.",
+      "Gold-plated": "Copper base with 1 micron gold plating, lacquer sealed against tarnish.",
+      "Gajra": "Fresh-look silk jasmine, hand-strung on cotton cord.",
+    };
+    return notes[prod.fabric] || prod.fabric + ", crafted in India.";
+  }
 
   /* ---------- state ---------- */
   let color = p.colors[0].name;
