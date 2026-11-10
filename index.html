@@ -112,8 +112,9 @@
       <button class="chip is-on" id="viewFront">Front</button><button class="chip" id="viewBack">Back</button>
     </div>
     <div class="rack-sizes" role="group" aria-label="Size" id="rackSizes"></div>
-    <div class="rack-actions">
+    <div class="rack-actions rack-detail-actions-row">
       <button class="btn btn-dark" id="rackAdd">Add to bag</button>
+      <button class="linklike" id="rackView">View full details →</button>
       <button class="linklike" id="rackAvail">See availability</button>
     </div>
   </div>
@@ -227,11 +228,11 @@
     </nav>
     <nav class="footer-col" aria-label="Support">
       <h3>Support</h3>
-      <a href="#top">Contact us</a><a href="#top">Shipping &amp; delivery</a><a href="#top">Returns &amp; exchanges</a>
+      <a href="contact.html">Contact us</a><a href="shipping.html">Shipping &amp; delivery</a><a href="refund.html">Returns &amp; refunds</a>
     </nav>
     <nav class="footer-col" aria-label="Legal">
       <h3>Legal</h3>
-      <a href="#top">Terms &amp; conditions</a><a href="#top">Privacy policy</a>
+      <a href="terms.html">Terms &amp; conditions</a><a href="privacy.html">Privacy policy</a>
     </nav>
     <div class="footer-news">
       <h3>Stay updated</h3>
@@ -292,7 +293,11 @@
   <ul class="drawer-list" id="drawerList"></ul>
   <div class="drawer-foot">
     <div class="drawer-total"><span>Total</span><strong id="drawerTotal">₹0</strong></div>
-    <p class="drawer-note">Concept demo — checkout is not part of this preview.</p>
+    <div class="drawer-ctas">
+      <a class="btn btn-dark" href="cart.html">View bag</a>
+      <a class="btn btn-red" href="checkout.html">Checkout</a>
+    </div>
+    <p class="drawer-note">Demo store — no real payment is processed.</p>
   </div>
 </aside>
 
@@ -300,6 +305,9 @@
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/store.js"></script>
 <script src="js/main.js"></script>
 <script type="module" src="js/braid.js"></script>
 </body>

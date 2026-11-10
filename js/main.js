@@ -149,8 +149,9 @@
   ];
 
   /* ============================ STATE ============================ */
-  const bag = []; // {name, price, img, qty}
-  const wishlist = new Set();
+  // Bag & wishlist persist across pages via ReshamStore (js/store.js + localStorage)
+  const bagOf = () => (window.ReshamStore ? ReshamStore.items() : []);
+  const prod = (name) => (window.reshamByName ? window.reshamByName(name) : null);
 
   /* ============================ TOAST ============================ */
   const toastEl = $("#toast");
@@ -165,12 +166,19 @@
   /* ============================ BAG ============================ */
   const bagCountEl = $("#bagCount"), bagPill = $("#bagPill"), bagPillCount = $("#bagPillCount");
   function addToBag(item) {
-    const found = bag.find((b) => b.name === item.name);
-    if (found) found.qty += 1; else bag.push({ ...item, qty: 1 });
+    const p = prod(item.name);
+    ReshamStore.add({
+      ...item,
+      sku: p ? p.sku : undefined,
+      mrp: p ? p.mrp : item.price,
+      fabric: p ? p.fabric : undefined,
+      color: p ? p.colors[0].name : undefined,
+      size: p ? p.sizes[0] : undefined,
+    }, 1);
     syncBag();
   }
   function syncBag() {
-    const count = bag.reduce((a, b) => a + b.qty, 0);
+    const count = ReshamStore.count();
     bagCountEl.hidden = count === 0;
     bagCountEl.textContent = count;
     bagPill.hidden = count === 0;
@@ -179,43 +187,21 @@
   }
   function syncWish() {
     const el = $("#wishCount");
-    el.hidden = wishlist.size === 0;
-    el.textContent = wishlist.size;
+    const n = ReshamStore.wishCount();
+    el.hidden = n === 0;
+    el.textContent = n;
   }
 
-  let wishPop = null;
-  function closeWishPop() { if (wishPop) { wishPop.remove(); wishPop = null; } }
-  function openWishPop() {
-    closeWishPop();
-    const items = SILKS.filter((s) => wishlist.has(s.name));
-    const el = document.createElement("div");
-    el.className = "wish-pop";
-    el.setAttribute("role", "dialog");
-    el.setAttribute("aria-label", "Wishlist");
-    el.innerHTML = `<p class="wish-pop-h">Wishlist &middot; ${items.length}</p>` + (items.length ? items.map((s) => `
-      <div class="wish-row">
-        <img src="${s.img}" alt=""><span>${s.name}<small>${inr(s.price)}</small></span>
-        <button class="btn btn-dark wish-add" data-n="${s.name}">Add to bag</button>
-        <button class="dl-x wish-x" data-n="${s.name}" aria-label="Remove ${s.name}">&#10005;</button>
-      </div>`).join("") : '<p class="wish-empty">Nothing saved yet. Tap the heart on any silk.</p>');
-    document.body.appendChild(el);
-    wishPop = el;
-    $$(".wish-add", el).forEach((b) => b.addEventListener("click", () => {
-      const s = SILKS.find((x) => x.name === b.dataset.n);
-      addToBag({ name: s.name + " Silk", price: s.price, img: s.img });
-      toast(`<b>${s.name}</b> dropped into your bag.`);
-    }));
-    $$(".wish-x", el).forEach((b) => b.addEventListener("click", () => {
-      wishlist.delete(b.dataset.n);
-      syncWish();
-      const heart = $(`.silk-heart[aria-label="Wishlist ${b.dataset.n}"]`);
-      if (heart) heart.classList.remove("is-on");
-      openWishPop();
-    }));
+  $("#wishBtn").addEventListener("click", () => { location.href = "wishlist.html"; });
+  document.addEventListener("resham:wish", syncWish);
+  function paintSilkHearts() {
+    $$(".silk-heart").forEach((h) => {
+      const s = SILKS.find((x) => h.getAttribute("aria-label") === "Wishlist " + x.name);
+      if (!s) return;
+      const p = prod(s.name);
+      h.classList.toggle("is-on", ReshamStore.wishHas(p ? p.sku : s.name));
+    });
   }
-  $("#wishBtn").addEventListener("click", (e) => { e.stopPropagation(); wishPop ? closeWishPop() : openWishPop(); });
-  document.addEventListener("click", (e) => { if (wishPop && !wishPop.contains(e.target) && !e.target.closest("#wishBtn")) closeWishPop(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && wishPop) closeWishPop(); });
 
   const drawer = $("#bagDrawer"), veil = $("#drawerVeil");
   let drawerLastFocus = null;
@@ -239,19 +225,23 @@
 
   function renderDrawer() {
     const list = $("#drawerList");
+    const bag = bagOf();
     if (!bag.length) {
       list.innerHTML = '<li class="drawer-empty">Your bag is empty. The rail is full, though.</li>';
     } else {
-      list.innerHTML = bag.map((b, i) => `
+      list.innerHTML = bag.map((b) => {
+        const name = b.sku ? `<a href="product.html?sku=${b.sku}">${b.name}</a>` : b.name;
+        return `
         <li>
           <img src="${b.img}" alt="">
-          <div class="dl-info"><strong>${b.name}</strong><small>Qty ${b.qty}</small></div>
+          <div class="dl-info"><strong>${name}</strong><small>Qty ${b.qty}${b.size && b.size !== "One Size" ? " · " + b.size : ""}${b.color ? " · " + b.color : ""}</small></div>
           <span class="dl-price">${inr(b.price * b.qty)}</span>
-          <button class="dl-x" data-i="${i}" aria-label="Remove ${b.name}">✕</button>
-        </li>`).join("");
-      $$(".dl-x", list).forEach((b) => b.addEventListener("click", () => { bag.splice(+b.dataset.i, 1); syncBag(); }));
+          <button class="dl-x" data-key="${b.key}" aria-label="Remove ${b.name}">✕</button>
+        </li>`;
+      }).join("");
+      $$(".dl-x", list).forEach((btn) => btn.addEventListener("click", () => { ReshamStore.remove(btn.dataset.key); syncBag(); }));
     }
-    $("#drawerTotal").textContent = inr(bag.reduce((a, b) => a + b.price * b.qty, 0));
+    $("#drawerTotal").textContent = inr(ReshamStore.subtotal());
   }
 
   /* ============================ TICKER ============================ */
@@ -400,6 +390,10 @@
           <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 20.5C7 16.5 3 13.3 3 9.3 3 6.4 5.2 4.5 7.6 4.5c1.7 0 3.3.9 4.4 2.4 1.1-1.5 2.7-2.4 4.4-2.4 2.4 0 4.6 1.9 4.6 4.8 0 4-4 7.2-9 11.2Z"/></svg>
         </button>
         <button class="silk-add" aria-label="Add ${s.name} to bag">+</button>`;
+      card.addEventListener("click", () => {
+        const p = prod(s.name);
+        if (p) location.href = p.href;
+      });
       card.querySelector(".silk-add").addEventListener("click", (e) => {
         e.stopPropagation();
         addToBag({ name: s.name + " Silk", price: s.price, img: s.img });
@@ -409,12 +403,16 @@
       const heart = card.querySelector(".silk-heart");
       heart.addEventListener("click", (e) => {
         e.stopPropagation();
-        const on = heart.classList.toggle("is-on");
-        on ? wishlist.add(s.name) : wishlist.delete(s.name);
+        const p = prod(s.name);
+        const id = p ? p.sku : s.name;
+        const on = ReshamStore.wishToggle({ sku: id, name: s.name + " Silk", price: s.price, img: s.img, cat: "Silk Sarees" });
+        heart.classList.toggle("is-on", on);
         syncWish();
+        toast(on ? `<b>${s.name}</b> saved to your wishlist.` : `<b>${s.name}</b> removed from your wishlist.`);
       });
       deck.appendChild(card);
     });
+    paintSilkHearts();
   })();
 
   /* ============================ THE RACK ============================ */
@@ -503,13 +501,38 @@
       toast(`<b>${cur.name}</b> - off the rail, into your bag.`);
     });
     $("#rackAvail").addEventListener("click", () => toast("In stock at the Lucknow flagship. Ships in 2 days."));
+    $("#rackView").addEventListener("click", () => {
+      const cur = items[idx];
+      const p = cur && prod(cur.name);
+      if (p) location.href = p.href;
+      else toast("This piece lives on the rail — the studio will tell you more.");
+    });
 
     // grid
     const grid = $("#rackGrid");
     GRID.forEach((g) => {
       const c = document.createElement("article");
       c.className = "grid-card";
-      c.innerHTML = `<span class="grid-num">${g.num}</span><img src="${g.img}" alt="${g.name}" loading="lazy"><strong>${g.name}</strong><p class="grid-price">${inr(g.price)}</p><button class="btn btn-dark">Add to bag</button>`;
+      const p = prod(g.name);
+      const href = p ? p.href : "#the-rack";
+      c.innerHTML = `
+        <span class="grid-num">${g.num}</span>
+        <a href="${href}" aria-label="${g.name}"><img src="${g.img}" alt="${g.name}" loading="lazy"></a>
+        <strong><a href="${href}">${g.name}</a></strong>
+        <p class="grid-price">${inr(g.price)}</p>
+        <button class="grid-heart" aria-label="Wishlist ${g.name}">
+          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 20.5C7 16.5 3 13.3 3 9.3 3 6.4 5.2 4.5 7.6 4.5c1.7 0 3.3.9 4.4 2.4 1.1-1.5 2.7-2.4 4.4-2.4 2.4 0 4.6 1.9 4.6 4.8 0 4-4 7.2-9 11.2Z"/></svg>
+        </button>
+        <button class="btn btn-dark">Add to bag</button>`;
+      const heart = c.querySelector(".grid-heart");
+      if (p && ReshamStore.wishHas(p.sku)) heart.classList.add("is-on");
+      heart.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const on = ReshamStore.wishToggle(p ? { sku: p.sku, name: g.name, price: g.price, img: g.img, cat: p.cat[0] } : { name: g.name, price: g.price, img: g.img });
+        heart.classList.toggle("is-on", on);
+        syncWish();
+        toast(on ? `<b>${g.name}</b> saved to your wishlist.` : `<b>${g.name}</b> removed from your wishlist.`);
+      });
       c.querySelector(".btn").addEventListener("click", () => {
         addToBag({ name: g.name, price: g.price, img: g.img });
         toast(`<b>${g.name}</b> added to your bag.`);
@@ -645,7 +668,8 @@
         c.style.opacity = abs > 3 ? 0 : 1;
         c.style.zIndex = 50 - abs;
       });
-      nameEl.textContent = BRIDAL[idx].name;
+      const bp = prod(BRIDAL[idx].name);
+      nameEl.innerHTML = bp ? `<a href="${bp.href}">${BRIDAL[idx].name} →</a>` : BRIDAL[idx].name;
       priceEl.textContent = inr(BRIDAL[idx].price);
     }
     $("#bridalPrev").addEventListener("click", () => { idx = (idx - 1 + BRIDAL.length) % BRIDAL.length; render(); });
@@ -774,6 +798,10 @@
     toast("Woven into the list. First letter arrives with the new season.");
     e.target.reset();
   });
+
+  /* ============================ RESTORE PERSISTED STATE ============================ */
+  syncBag();
+  syncWish();
 
   /* ============================ SCROLL MOTION ============================ */
   if (window.gsap && window.ScrollTrigger && !reduced) {

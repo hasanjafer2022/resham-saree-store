@@ -703,3 +703,19 @@ a{color:inherit;text-decoration:none}
 /* anchor offset for fixed nav */
 .section{scroll-margin-top:96px}
 @media (max-width:1080px){.section{scroll-margin-top:150px}}
+
+/* ---------------- shop wiring (pages + persistence) ---------------- */
+.silk-card{cursor:pointer}
+.grid-card{position:relative}
+.grid-card strong a{color:inherit}
+.grid-heart{
+  position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;
+  background:rgba(244,241,232,.94);border:1px solid var(--line);display:grid;place-items:center;
+  color:var(--ink-soft);z-index:3;transition:transform .2s,color .2s;
+}
+.grid-heart:hover{transform:scale(1.08)}
+.grid-heart.is-on{color:var(--red)}
+.drawer-ctas{display:flex;gap:10px;margin-top:12px}
+.drawer-ctas .btn{flex:1;display:inline-flex;align-items:center;justify-content:center;height:42px;font-size:13.5px;text-decoration:none}
+.bridal-name a{color:inherit}
+.rack-detail-actions-row{display:flex;gap:14px;align-items:center}

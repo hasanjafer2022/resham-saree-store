@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Digigrow Solution — digigrowsolutions.in">
+<meta name="description" content="Checkout — RESHAM · Lucknow Silk. Demo store, no real payment is processed.">
+<title>Checkout · RESHAM - Lucknow Silk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Anton&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect width=%2724%27 height=%2724%27 rx=%2712%27 fill=%27%235c0e1a%27/%3E%3Ctext x=%2712%27 y=%2717%27 font-size=%2713%27 text-anchor=%27middle%27 fill=%27%23f0c76a%27 font-family=%27serif%27 font-weight=%27bold%27%3ER%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="checkout">
+<header class="nav-wrap" id="pageNav"></header>
+
+<main class="page">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><i>/</i><a href="cart.html">Bag</a><i>/</i><b>Checkout</b></nav>
+  <div class="page-head">
+    <h1 class="page-title">Almost <em>yours.</em></h1>
+    <p class="page-sub">Where should the parcel reach, and how would you like to pay?</p>
+  </div>
+
+  <div id="checkoutEmpty" hidden>
+    <div class="empty">
+      <div class="empty-icon">🧵</div>
+      <h3>Nothing to check out</h3>
+      <p>Your bag is empty. Pick a silk first — checkout takes two minutes.</p>
+      <a class="btn btn-red" href="index.html#the-rack">Browse the rack</a>
+    </div>
+  </div>
+
+  <div class="checkout-cols" id="checkoutLayout" hidden>
+    <form id="checkoutForm" novalidate>
+      <section class="panel">
+        <h3><span class="stepnum">1</span> Contact</h3>
+        <div class="form-grid">
+          <div class="field full"><label for="fName">Full name</label><input id="fName" autocomplete="name" placeholder="As on your ID"><span class="err-msg">Please tell us your name.</span></div>
+          <div class="field"><label for="fEmail">Email</label><input id="fEmail" type="email" autocomplete="email" placeholder="you@example.com"><span class="err-msg">A valid email, for the invoice.</span></div>
+          <div class="field"><label for="fPhone">Phone</label><input id="fPhone" inputmode="numeric" maxlength="10" autocomplete="tel" placeholder="10-digit mobile"><span class="err-msg">A 10-digit mobile number.</span></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3><span class="stepnum">2</span> Shipping address</h3>
+        <div class="form-grid">
+          <div class="field full"><label for="fAddr">Address</label><input id="fAddr" autocomplete="street-address" placeholder="House / flat, street, landmark"><span class="err-msg">We need a street to find you.</span></div>
+          <div class="field"><label for="fCity">City</label><input id="fCity" autocomplete="address-level2" placeholder="City"><span class="err-msg">Your city?</span></div>
+          <div class="field"><label for="fState">State</label>
+            <select id="fState">
+              <option value="">Select state</option>
+              <option>Uttar Pradesh</option><option>Delhi</option><option>Maharashtra</option><option>Karnataka</option><option>Tamil Nadu</option><option>Telangana</option><option>West Bengal</option><option>Gujarat</option><option>Rajasthan</option><option>Kerala</option><option>Punjab</option><option>Haryana</option><option>Madhya Pradesh</option><option>Bihar</option><option>Assam</option><option>Odisha</option><option>Andhra Pradesh</option><option>Other</option>
+            </select><span class="err-msg">Choose your state.</span>
+          </div>
+          <div class="field"><label for="fPin">Pincode</label><input id="fPin" inputmode="numeric" maxlength="6" autocomplete="postal-code" placeholder="6-digit pincode"><span class="err-msg">A 6-digit pincode.</span></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3><span class="stepnum">3</span> Payment</h3>
+        <label class="pay-option is-on" id="payGatewayRow">
+          <input type="radio" name="pay" value="gateway" checked>
+          <span><b>Pay online</b><small id="payGatewayNote">UPI, cards, netbanking — secure payment page.</small></span>
+          <span class="pay-tag">Recommended</span>
+        </label>
+        <label class="pay-option" id="payDemoRow">
+          <input type="radio" name="pay" value="demo">
+          <span><b>Pay with demo gateway</b><small>A test checkout sheet — walks through UPI / card without any real charge.</small></span>
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="pay" value="cod">
+          <span><b>Cash on delivery</b><small>Pay the courier when the parcel reaches your door. ₹0 extra.</small></span>
+        </label>
+      </section>
+    </form>
+
+    <aside class="summary">
+      <h3>Your order</h3>
+      <div id="checkoutItems"></div>
+      <div class="sum-row" style="margin-top:12px"><span>Subtotal</span><b id="cSub">₹0</b></div>
+      <div class="sum-row discount" id="cDiscountRow" hidden><span>Coupon</span><b id="cDiscount">−₹0</b></div>
+      <div class="sum-row"><span>Shipping</span><b id="cShip">₹0</b></div>
+      <div class="sum-total"><span>Total</span><span id="cTotal">₹0</span></div>
+      <button class="btn btn-red" id="placeOrder" type="button" style="margin-top:16px">Place order</button>
+      <p class="demo-note">Demo store · no real payment is processed</p>
+    </aside>
+  </div>
+</main>
+
+<footer class="footer" id="pageFooter"></footer>
+<div class="subticker" aria-hidden="true"><div id="subTickerTrack"></div></div>
+
+<!-- demo payment gateway sheet -->
+<div class="payveil" id="payVeil"></div>
+<section class="paysheet" id="paySheet" role="dialog" aria-modal="true" aria-label="Demo payment gateway">
+  <div class="paysheet-head">
+    <div><b>RESHAM SECURE PAY</b><small>Test gateway · Digigrow Solution</small></div>
+    <span class="amt" id="payAmt">₹0</span>
+  </div>
+  <div class="paysheet-body">
+    <div class="paytabs">
+      <button class="paytab is-on" id="tabUpi" type="button">UPI</button>
+      <button class="paytab" id="tabCard" type="button">Card</button>
+    </div>
+    <div id="paneUpi">
+      <div class="field"><label for="upiId">UPI ID</label><input id="upiId" placeholder="name@upi"></div>
+      <p class="payfoot">or scan the QR at the counter · VPA: <b id="payVpa"></b></p>
+    </div>
+    <div id="paneCard" hidden>
+      <div class="field"><label for="cardNum">Card number</label><input id="cardNum" inputmode="numeric" placeholder="4111 1111 1111 1111" maxlength="19"></div>
+      <div class="field"><label for="cardName">Name on card</label><input id="cardName" placeholder="Full name"></div>
+      <div class="form-grid">
+        <div class="field"><label for="cardExp">Expiry</label><input id="cardExp" placeholder="MM/YY" maxlength="5"></div>
+        <div class="field"><label for="cardCvv">CVV</label><input id="cardCvv" inputmode="numeric" placeholder="•••" maxlength="3"></div>
+      </div>
+    </div>
+    <button class="paybtn" id="payBtn" type="button">Pay securely</button>
+    <p class="payfoot"><span class="pay-secure"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 1 5 5v2h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1h1V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v2h6V7a3 3 0 0 0-3-3Z"/></svg> 256-bit test encryption · no money moves</span></p>
+  </div>
+</section>
+<div class="subtoast" id="subtoast" role="status" aria-live="polite"></div>
+
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/store.js"></script>
+<script src="js/chrome.js"></script>
+<script src="js/shop.js"></script>
+</body>
+</html>

@@ -11,11 +11,17 @@ HTML/CSS/JS, GSAP and Three.js. No build step required.
 
 ## Highlights
 
+- Full storefront: home, product pages, cart, wishlist, checkout and order confirmation
+- Product pages with image zoom (hover lens + fullscreen), colour/size variants, pincode delivery check, related products
+- Persistent bag & wishlist (localStorage — survives page reloads across the whole site)
+- Checkout with address form, demo payment gateway (UPI/card sheet), COD, and coupon codes (`RESHAM10`, `FIRSTDRAPE`)
+- Payment-gateway integration point in `js/config.js` — paste a hosted gateway link to redirect real payments
+- Privacy policy, terms, returns & refunds, shipping & delivery, contact pages
 - Depth-of-field saree rack carousel (blur/focus rails, arrows + drag)
 - Tilt/fan product cards (silk deck + bridal fan, quick-add with bag count)
 - 3D fabric braid builder (Three.js): pick 3 silks, strands braid live, add to bag
 - Story viewer (progress segments, auto-advance, pause on hold)
-- Hotspots on the muse film, marquee/ticker, look selector, bag drawer with cart state
+- Hotspots on the muse film, marquee/ticker, look selector, bag drawer
 - Fully responsive (desktop + mobile), `prefers-reduced-motion` honored
 
 ## Run locally
